@@ -4,8 +4,8 @@ import urllib
 import md5
 import time
 
-username = 'your username'
-password = 'your passwork'
+username = 'put your username here'
+password = 'put your passwork here'
 
 if __name__ == '__main__':
     conn = httplib.HTTPConnection('166.111.8.120')
