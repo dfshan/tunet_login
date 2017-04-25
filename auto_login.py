@@ -6,9 +6,7 @@ import md5
 import time
 import tunet
 import argparse
-
-username = 'put your username here'
-password = 'put your password here'
+import ConfigParser
 
 
 def main():
@@ -16,17 +14,31 @@ def main():
         description="Login to tsinghua network."
     )
     parser.add_argument(
-        "-u", "--username", default=username,
+        "-u", "--username",
         help="Username"
     )
     parser.add_argument(
-        "-p", "--password", default=username,
+        "-p", "--password",
         help="password"
     )
+    config_fname = "tunet.conf"
     args = parser.parse_args()
+    if args.username is not None and args.password is not None:
+        username, password = args.username, args.password
+    else:
+        cf = ConfigParser.ConfigParser()
+        cf.read(config_fname)
+        status = tunet.check_status()
+        try:
+            username = cf.get("account", "username")
+            password = cf.get("account", "password")
+        except ConfigParser.NoSectionError, ConfigParser.NoOptionError:
+            print ("Please specify username and password either via cmd argument"
+                   "or in configuration file " + config_fname)
+    print "Login using username: " + username
     while True:
         if tunet.check_status() != 'online':
-            print tunet.login(args.username, args.password)
+            print tunet.login(username, password)
         time.sleep(11)
 
 
