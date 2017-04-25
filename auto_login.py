@@ -32,9 +32,10 @@ def main():
         try:
             username = cf.get("account", "username")
             password = cf.get("account", "password")
-        except ConfigParser.NoSectionError, ConfigParser.NoOptionError:
+        except (ConfigParser.NoSectionError, ConfigParser.NoOptionError):
             print ("Please specify username and password either via cmd argument"
                    "or in configuration file " + config_fname)
+            return None
     print "Login using username: " + username
     while True:
         if tunet.check_status() != 'online':
