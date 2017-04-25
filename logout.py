@@ -1,9 +1,10 @@
-#!/usr/bin/env python2.7
-import httplib
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+import tunet
+
+
+def main():
+    print tunet.logout()
 
 if __name__ == '__main__':
-    conn = httplib.HTTPConnection('166.111.8.120')
-    conn.request('post', '/cgi-bin/do_logout')
-    resp = conn.getresponse().read()
-    print resp
-    conn.close()
+    main()

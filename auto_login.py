@@ -24,7 +24,10 @@ def main():
         help="password"
     )
     args = parser.parse_args()
-    print tunet.login(args.username, args.password)
+    while True:
+        if tunet.check_status() != 'online':
+            print tunet.login(args.username, args.password)
+        time.sleep(11)
 
 
 if __name__ == '__main__':
